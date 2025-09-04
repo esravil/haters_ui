@@ -5,6 +5,7 @@ import MainLayout from "@/components/layout/MainLayout";
 import SectionTitle from "@/components/common/SectionTitle";
 import Button from "@/components/common/Button";
 import GoalCard from "@/components/goals/GoalCard";
+import CreateGoalModal from "@/components/goals/CreateGoalModal";
 import { mockUserGoals } from "@/utils/mockData";
 
 /**
@@ -13,6 +14,7 @@ import { mockUserGoals } from "@/utils/mockData";
 export default function DashboardPage() {
   // State
   const [activeFilter, setActiveFilter] = useState("active");
+  const [showCreateModal, setShowCreateModal] = useState(false);
 
   // Filter goals based on selected filter
   const filteredGoals = mockUserGoals.filter((goal) => {
@@ -30,7 +32,7 @@ export default function DashboardPage() {
               <Button
                 variant="primary"
                 animate={true}
-                onClick={() => {/* Handle create goal */}}
+                onClick={() => setShowCreateModal(true)}
               >
                 Create New Goal
               </Button>
@@ -84,7 +86,7 @@ export default function DashboardPage() {
               <Button
                 variant="primary"
                 animate={true}
-                onClick={() => {/* Handle create goal */}}
+                onClick={() => setShowCreateModal(true)}
               >
                 Create Your First Goal
               </Button>
@@ -92,6 +94,12 @@ export default function DashboardPage() {
           )}
         </div>
       </section>
+      
+      {/* Create Goal Modal */}
+      <CreateGoalModal
+        isOpen={showCreateModal}
+        onClose={() => setShowCreateModal(false)}
+      />
     </MainLayout>
   );
 }

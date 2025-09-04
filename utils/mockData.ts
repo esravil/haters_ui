@@ -14,6 +14,15 @@ export interface Goal {
   status: string
   progress: number
   haters: number
+  paymentToken?: 'SOL' | 'USDC'
+  isPublic?: boolean
+  isMultiplayer?: boolean
+  participants?: number
+  maxParticipants?: number
+  arbiterType?: 'llm' | 'designated' | 'self'
+  proofMethod?: string
+  mediaUrl?: string
+  createdBy?: string
 }
 
 // User's goals (active, completed, and failed)
@@ -26,6 +35,14 @@ export const mockUserGoals: Goal[] = [
     status: "active",
     progress: 55,
     haters: getRandomHaters(),
+    paymentToken: 'USDC',
+    isPublic: true,
+    isMultiplayer: true,
+    participants: 3,
+    maxParticipants: 5,
+    arbiterType: 'llm',
+    proofMethod: 'Upload finish line photo + race bib + official time',
+    createdBy: 'user123',
   },
   {
     id: 102,
@@ -35,15 +52,27 @@ export const mockUserGoals: Goal[] = [
     status: "active",
     progress: 30,
     haters: getRandomHaters(),
+    paymentToken: 'USDC',
+    isPublic: true,
+    isMultiplayer: false,
+    arbiterType: 'self',
+    proofMethod: 'Post book list with reviews on social media',
+    createdBy: 'user123',
   },
   {
     id: 103,
     description: "Build a mobile app",
     deadline: new Date(Date.now() + 60 * 24 * 60 * 60 * 1000), // 60 days from now
-    stakeAmount: 1200,
+    stakeAmount: 2.5,
     status: "active",
     progress: 40,
     haters: getRandomHaters(),
+    paymentToken: 'SOL',
+    isPublic: false,
+    isMultiplayer: false,
+    arbiterType: 'designated',
+    proofMethod: 'Submit app store link + demo video',
+    createdBy: 'user123',
   },
   {
     id: 104,
@@ -53,6 +82,12 @@ export const mockUserGoals: Goal[] = [
     status: "completed",
     progress: 100,
     haters: getRandomHaters(),
+    paymentToken: 'USDC',
+    isPublic: true,
+    isMultiplayer: false,
+    arbiterType: 'self',
+    proofMethod: 'Record video playing a full song',
+    createdBy: 'user123',
   },
   {
     id: 105,
@@ -62,6 +97,14 @@ export const mockUserGoals: Goal[] = [
     status: "completed",
     progress: 100,
     haters: getRandomHaters(),
+    paymentToken: 'USDC',
+    isPublic: true,
+    isMultiplayer: true,
+    participants: 2,
+    maxParticipants: 3,
+    arbiterType: 'designated',
+    proofMethod: 'Submit manuscript PDF (50,000+ words)',
+    createdBy: 'user123',
   },
   {
     id: 106,
@@ -71,15 +114,29 @@ export const mockUserGoals: Goal[] = [
     status: "failed",
     progress: 60,
     haters: getRandomHaters(),
+    paymentToken: 'USDC',
+    isPublic: true,
+    isMultiplayer: false,
+    arbiterType: 'self',
+    proofMethod: 'Post before/after scale photos',
+    createdBy: 'user123',
   },
   {
     id: 107,
     description: "Run a marathon",
     deadline: new Date(Date.now() - 45 * 24 * 60 * 60 * 1000), // 45 days ago
-    stakeAmount: 750,
+    stakeAmount: 1.2,
     status: "failed",
     progress: 75,
     haters: getRandomHaters(),
+    paymentToken: 'SOL',
+    isPublic: true,
+    isMultiplayer: true,
+    participants: 4,
+    maxParticipants: 8,
+    arbiterType: 'llm',
+    proofMethod: 'Official race results + GPS tracking data',
+    createdBy: 'user123',
   },
 ];
 
@@ -93,6 +150,14 @@ export const mockPublicGoals: Goal[] = [
     status: "active",
     progress: 65,
     haters: getRandomHaters(),
+    paymentToken: 'USDC',
+    isPublic: true,
+    isMultiplayer: true,
+    participants: 2,
+    maxParticipants: 6,
+    arbiterType: 'llm',
+    proofMethod: 'Official race completion certificate',
+    createdBy: 'runner_pro',
   },
   {
     id: 2,
@@ -102,15 +167,29 @@ export const mockPublicGoals: Goal[] = [
     status: "active",
     progress: 40,
     haters: getRandomHaters(),
+    paymentToken: 'USDC',
+    isPublic: true,
+    isMultiplayer: false,
+    arbiterType: 'self',
+    proofMethod: 'Play full song video recording',
+    createdBy: 'music_lover',
   },
   {
     id: 3,
     description: "Write a novel",
     deadline: new Date(Date.now() + 120 * 24 * 60 * 60 * 1000), // 120 days from now
-    stakeAmount: 1000,
+    stakeAmount: 1.5,
     status: "active",
     progress: 25,
     haters: getRandomHaters(),
+    paymentToken: 'SOL',
+    isPublic: true,
+    isMultiplayer: true,
+    participants: 5,
+    maxParticipants: 10,
+    arbiterType: 'designated',
+    proofMethod: 'Submit complete 50k word manuscript',
+    createdBy: 'author_wannabe',
   },
   {
     id: 4,
@@ -120,6 +199,14 @@ export const mockPublicGoals: Goal[] = [
     status: "active",
     progress: 50,
     haters: getRandomHaters(),
+    paymentToken: 'USDC',
+    isPublic: true,
+    isMultiplayer: true,
+    participants: 3,
+    maxParticipants: 5,
+    arbiterType: 'llm',
+    proofMethod: 'Before/after photos on scale',
+    createdBy: 'fitness_goals',
   },
   {
     id: 5,
@@ -129,14 +216,28 @@ export const mockPublicGoals: Goal[] = [
     status: "active",
     progress: 75,
     haters: getRandomHaters(),
+    paymentToken: 'USDC',
+    isPublic: true,
+    isMultiplayer: false,
+    arbiterType: 'self',
+    proofMethod: 'Link to published episode on platform',
+    createdBy: 'podcast_creator',
   },
   {
     id: 6,
     description: "Learn Spanish",
     deadline: new Date(Date.now() + 180 * 24 * 60 * 60 * 1000), // 180 days from now
-    stakeAmount: 600,
+    stakeAmount: 0.8,
     status: "active",
     progress: 15,
     haters: getRandomHaters(),
+    paymentToken: 'SOL',
+    isPublic: true,
+    isMultiplayer: true,
+    participants: 8,
+    maxParticipants: 12,
+    arbiterType: 'designated',
+    proofMethod: 'Pass B1 level Spanish certification test',
+    createdBy: 'language_learner',
   },
 ];

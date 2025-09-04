@@ -5,6 +5,7 @@ import Link from "next/link";
 import { mockUserGoals } from "../utils/mockData";
 import GoalCard from "./goals/GoalCard";
 import CreateGoalCard from "./goals/CreateGoalCard";
+import CreateGoalModal from "./goals/CreateGoalModal";
 import SectionTitle from "./common/SectionTitle";
 import Button from "./common/Button";
 
@@ -14,6 +15,7 @@ import Button from "./common/Button";
 const UserActiveGoals: React.FC = () => {
   // Check if user is logged in (this would be replaced with actual auth check)
   const isLoggedIn = true;
+  const [showCreateModal, setShowCreateModal] = useState(false);
 
   if (!isLoggedIn) {
     return null;
@@ -30,7 +32,7 @@ const UserActiveGoals: React.FC = () => {
             <Button
               variant="primary"
               animate={true}
-              onClick={() => {/* Handle create goal */}}
+              onClick={() => setShowCreateModal(true)}
             >
               Create New Goal
             </Button>
@@ -44,7 +46,7 @@ const UserActiveGoals: React.FC = () => {
           ))}
 
           {/* Create New Goal Card */}
-          <CreateGoalCard onClick={() => {/* Handle create goal */}} />
+          <CreateGoalCard onClick={() => setShowCreateModal(true)} />
         </div>
 
         <div className="text-center mt-8">
@@ -53,6 +55,12 @@ const UserActiveGoals: React.FC = () => {
           </Link>
         </div>
       </div>
+      
+      {/* Create Goal Modal */}
+      <CreateGoalModal
+        isOpen={showCreateModal}
+        onClose={() => setShowCreateModal(false)}
+      />
     </section>
   );
 };

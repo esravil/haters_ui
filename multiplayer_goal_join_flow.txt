@@ -1,0 +1,146 @@
+# Multiplayer Goal Join Flow - Logic & Implementation Plan
+
+## 1. Join Goal Flow Overview
+
+### User Journey
+1. User discovers multiplayer goal (feed, invitation, social share)
+2. User clicks "Join" button on goal card
+3. Join modal opens showing:
+   - Goal details recap
+   - Required stake amount (same as creator)
+   - Required payment token (SOL or USDC)
+   - Current participants count
+   - Deadline and proof requirements
+4. User confirms they want to join
+5. Payment processing initiated
+6. Backend validates and processes join request
+7. User added to goal participants
+8. UI updates to reflect joined status
+
+## 2. Frontend Responsibilities (UI Layer Only)
+
+### Join Modal Component
+- Display goal information
+- Show required stake amount and token type
+- Participant count display
+- Join confirmation UI
+- Loading states during processing
+- Success/error feedback
+
+### State Management
+- Track join modal open/closed state
+- Handle loading states
+- Update UI after successful join
+- Error handling and user feedback
+
+### API Calls
+- GET goal details for join modal
+- POST join request to backend
+- Handle response and update UI accordingly
+
+## 3. Backend Responsibilities (Business Logic)
+
+### Join Request Validation
+- Verify goal is still accepting participants
+- Check participant limit not exceeded
+- Validate user has sufficient balance
+- Ensure user not already a participant
+- Confirm goal hasn't expired
+
+### Payment Processing
+- Create escrow account for participant
+- Process stake transfer (SOL or USDC)
+- Handle payment failures and rollbacks
+- Update participant balance records
+
+### Data Management
+- Add user to goal participants list
+- Update participant count
+- Create activity log entry
+- Send notifications to other participants
+- Update goal status if now full
+
+## 4. API Endpoints Needed
+
+### GET /api/goals/{goalId}/join-details
+Response:
+- Goal basic info
+- Required stake amount and token
+- Current participant count and limit
+- User eligibility status
+
+### POST /api/goals/{goalId}/join
+Request:
+- User authentication
+- Payment confirmation
+- Wallet signature
+
+Response:
+- Success/failure status
+- Updated goal data
+- Transaction ID
+- Error details if failed
+
+## 5. Implementation Steps
+
+### Phase 1: Frontend Join UI
+1. Create JoinGoalModal component
+2. Add join modal state to goal cards
+3. Implement join confirmation flow
+4. Add loading and error states
+
+### Phase 2: Backend Integration
+1. Create join-details API endpoint
+2. Implement join request validation
+3. Add payment processing integration
+4. Update participant management
+
+### Phase 3: Real-time Updates
+1. Add WebSocket/real-time updates for participant changes
+2. Update all connected users when someone joins
+3. Handle concurrent join attempts
+
+### Phase 4: Error Handling & Edge Cases
+1. Payment failures
+2. Simultaneous joins hitting participant limit
+3. Network interruptions during join process
+4. Goal state changes during join flow
+
+## 6. Key Considerations
+
+### Security
+- All payment validation on backend
+- User authentication required
+- Wallet signature verification
+- Race condition handling for participant limits
+
+### User Experience
+- Clear stake requirements upfront
+- Real-time participant count updates
+- Immediate feedback on join success/failure
+- Graceful error handling with retry options
+
+### Data Consistency
+- Atomic transactions for joins
+- Proper rollback on failures
+- Consistent participant counts across all views
+- Activity logging for audit trail
+
+## 7. Testing Scenarios
+
+### Happy Path
+- User successfully joins goal with available slots
+- Payment processes correctly
+- UI updates reflect new participant
+
+### Edge Cases
+- Goal fills up while user is joining
+- Payment fails during processing
+- Network interruption during join
+- User tries to join same goal twice
+
+### Error Conditions
+- Insufficient wallet balance
+- Goal expired before join completed
+- Maximum participants already reached
+- Invalid payment token type

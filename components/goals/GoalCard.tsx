@@ -35,8 +35,8 @@ const GoalCard: React.FC<GoalCardProps> = ({ goal }) => {
         />
       </div>
 
-      {/* Status Badge and Haters Count */}
-      <div className="flex justify-between items-center mb-4">
+      {/* Status Badges */}
+      <div className="flex flex-wrap gap-2 mb-4">
         <div
           className={`inline-block px-3 py-1 font-bold border-3 border-base ${
             goal.status === "completed"
@@ -52,6 +52,19 @@ const GoalCard: React.FC<GoalCardProps> = ({ goal }) => {
             ? "FAILED"
             : "ACTIVE"}
         </div>
+        
+        {goal.isMultiplayer && (
+          <div className="bg-purple-500 text-white border-3 border-base px-3 py-1 font-bold text-sm">
+            MULTIPLAYER
+          </div>
+        )}
+        
+        {goal.isPublic === false && (
+          <div className="bg-gray-500 text-white border-3 border-base px-3 py-1 font-bold text-sm">
+            PRIVATE
+          </div>
+        )}
+        
         <div className="bg-accent text-white border-3 border-base px-3 py-1 font-bold">
           {goal.haters} Haters
         </div>
@@ -65,19 +78,43 @@ const GoalCard: React.FC<GoalCardProps> = ({ goal }) => {
         />
       </div>
 
+      {/* Multiplayer Participants Info */}
+      {goal.isMultiplayer && (
+        <div className="mb-4 p-3 bg-gray-50 border-2 border-base">
+          <p className="font-bold text-sm">
+            Participants: {goal.participants || 1}/{goal.maxParticipants}
+          </p>
+          {goal.arbiterType && (
+            <p className="text-sm text-gray-600">
+              Arbiter: {goal.arbiterType === 'llm' ? 'AI Judge' : goal.arbiterType === 'designated' ? 'Designated Pool' : 'Self-Verification'}
+            </p>
+          )}
+        </div>
+      )}
+
       {/* Card Footer */}
       <div className="flex justify-between items-center">
         <div>
           <p className="font-bold text-sm">Staked</p>
           <p className="font-black text-xl">
-            <span className="text-primary">$</span> {goal.stakeAmount}
+            {goal.paymentToken === 'SOL' ? '◎' : '$'} {goal.stakeAmount}
+            <span className="text-sm font-normal text-gray-600 ml-1">
+              {goal.paymentToken || 'USDC'}
+            </span>
           </p>
         </div>
-        <Link href={`/goals/${goal.id}`}>
-          <Button variant="secondary" className="py-2 px-4">
-            View
-          </Button>
-        </Link>
+        <div className="flex gap-2">
+          {goal.isMultiplayer && goal.status === 'active' && (
+            <Button variant="link" className="py-2 px-3 text-sm">
+              Join
+            </Button>
+          )}
+          <Link href={`/goals/${goal.id}`}>
+            <Button variant="secondary" className="py-2 px-4">
+              View
+            </Button>
+          </Link>
+        </div>
       </div>
     </div>
   );
