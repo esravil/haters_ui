@@ -1,0 +1,144 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@keyframes wiggle {
+  0%,
+  100% {
+    transform: rotate(-1deg);
+  }
+  50% {
+    transform: rotate(1deg);
+  }
+}
+
+@keyframes slight-bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+body {
+  @apply bg-background text-base;
+  font-family: 'Inter', sans-serif;
+}
+
+@layer components {
+  /* Neobrutalist Button Styles */
+  .btn {
+    @apply px-5 py-3 font-bold text-lg transition-all duration-200 border-3 border-base shadow-brutal relative;
+  }
+
+  .btn-primary {
+    @apply bg-primary text-white border-base hover:translate-y-1 hover:translate-x-1 hover:shadow-none active:translate-y-1 active:translate-x-1 active:shadow-none;
+  }
+
+  .btn-secondary {
+    @apply bg-white text-primary border-base hover:translate-y-1 hover:translate-x-1 hover:shadow-none active:translate-y-1 active:translate-x-1 active:shadow-none;
+  }
+
+  .btn-accent {
+    @apply bg-accent text-white border-base hover:translate-y-1 hover:translate-x-1 hover:shadow-none active:translate-y-1 active:translate-x-1 active:shadow-none;
+  }
+
+  /* Neobrutalist Card Styles */
+  .card {
+    @apply bg-white p-6 border-3 border-base shadow-brutal transition-all duration-200;
+  }
+
+  .card-hover {
+    @apply transition-all duration-200;
+  }
+
+  .card-primary {
+    @apply bg-primary text-white;
+  }
+
+  .card-accent {
+    @apply bg-accent text-white;
+  }
+
+  /* Neobrutalist Input Styles */
+  .input {
+    @apply w-full px-4 py-3 border-3 border-base focus:outline-none focus:ring-0 focus:border-primary bg-white;
+  }
+
+  /* Utility Classes */
+  .shadow-brutal {
+    @apply shadow-[4px_4px_0px_0px_rgba(17,24,39,1)];
+  }
+
+  .border-3 {
+    @apply border-[3px];
+  }
+
+  .animate-wiggle {
+    animation: wiggle 3s ease-in-out infinite;
+  }
+
+  /* Section Styles */
+  .section-title {
+    @apply text-4xl md:text-5xl font-black mb-6 relative inline-block;
+  }
+
+  .section-title-underline {
+    @apply absolute -bottom-2 left-0 w-full h-3 bg-accent -z-10;
+  }
+
+  /* Neobrutalist Container */
+  .neo-container {
+    @apply border-3 border-base bg-white p-8 shadow-brutal;
+  }
+}
+
+/* ------------------------------------------------------------------------
+   Neo‑brutalist helpers – heavy 3 px borders on specific sides
+   --------------------------------------------------------------------- */
+@layer utilities {
+  .border-t-3 {
+    border-top-width: 3px;
+  }
+  .border-r-3 {
+    border-right-width: 3px;
+  }
+  .border-b-3 {
+    border-bottom-width: 3px;
+  }
+  .border-l-3 {
+    border-left-width: 3px;
+  }
+}
+
+/* ░░░ Solana Wallet‑adapter – haters.me overrides ░░░ */
+
+/* Wallet button styling */
+.wallet-adapter-button-trigger {
+  background-color: #3b82f6 !important;
+  color: white !important;
+  border: 3px solid #111827 !important;
+  border-radius: 0 !important;
+  font-family: 'Inter', sans-serif !important;
+  font-weight: bold !important;
+  font-size: 1rem !important;
+  padding: 0.75rem 1.25rem !important;
+  box-shadow: 4px 4px 0px 0px rgba(17, 24, 39, 1) !important;
+  transition: all 0.2s !important;
+}
+
+.wallet-adapter-button-trigger:hover {
+  background-color: #3b82f6 !important;
+  transform: translate(4px, 4px) !important;
+  box-shadow: none !important;
+}
+
+.wallet-adapter-button-trigger:active {
+  transform: translate(4px, 4px) !important;
+  box-shadow: none !important;
+}
